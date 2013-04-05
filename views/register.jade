@@ -3,11 +3,21 @@ include header
    form(class='form-signin', action='/register.html', method='post', id='register')
     h2.form-signin-heading Sign Up
 
-    input(type='text', class='input-block-level', placeholder='Email Address', name='user[email]')
-    input(type='text', class='input-block-level', placeholder='Username', name='user[username]')
-    input(type='text', class='input-block-level', placeholder='Password', name='user[password]')
-    input(type='text', class='input-block-level', placeholder='Password Confirmation', name='user[passwordc]')
+    input(type='email', required, class='input-block-level', placeholder='Email Address', name='user[email]', id='user_email')
+    p(id='alert_user_email', class='alert-error')
+    input(type='text', required, class='input-block-level', placeholder='Username', name='user[username]', id='user_username')
+    p(id='alert_user_username', class='alert-error')
+    input(type='password', required, class='input-block-level', placeholder='Password', name='user[password]', id='user_password')
+    p(id='alert_user_password', class='alert-error')
+    input(type='password', required, class='input-block-level', placeholder='Password Confirmation', name='user[passwordc]', id='user_passwordc')
+    p(id='alert_user_passwordc', class='alert-error')
     
     button(type='submit', class='btn btn-primary btn-large', id='registeruser') Sign up 
+
+ div#successreg
+  div.container
+   div.hero-unit
+    h2(id='alertsuccessreg', class='alert-info', style='text-align: center;')
+    a(href='#', id='gobackreg', class='muted credit pull-right') Go Back
 
  script(src='/public/javascripts/register.js');
