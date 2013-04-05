@@ -1,0 +1,13 @@
+include header
+ div.regbody
+   form(class='form-signin', action='/register.html', method='post', id='register')
+    h2.form-signin-heading Sign Up
+
+    input(type='text', class='input-block-level', placeholder='Email Address', name='user[email]')
+    input(type='text', class='input-block-level', placeholder='Username', name='user[username]')
+    input(type='text', class='input-block-level', placeholder='Password', name='user[password]')
+    input(type='text', class='input-block-level', placeholder='Password Confirmation', name='user[passwordc]')
+    
+    button(type='submit', class='btn btn-primary btn-large', id='registeruser') Sign up 
+
+ script(src='/public/javascripts/register.js');
