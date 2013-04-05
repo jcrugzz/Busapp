@@ -1,5 +1,5 @@
-$("#register").submit(function(e) { e.preventDefault();
-	alert('Clicked!');
+$(function() {
+	$("#register").submit(function(e) { e.preventDefault();
+		alert('Clicked!');
+	});
 });
-
-document.writeln('Test');
