@@ -36,7 +36,7 @@ $(function() {
     submit_btn.disabled = true;
     $('#user_username').on('keyup change', function() {
       if (username.val().length <= 0) {
-        $('#alert_user_username').text('First name cannot be blank');
+        $('#alert_user_username').text('Username cannot be blank');
         submit_btn.disabled = true;
         $('#alert_user_username').show();
       }
@@ -55,6 +55,12 @@ $(function() {
 	    	submit_btn.disabled = true;
 	    }
 	    if(passwordc.val() == '') {
+	    	submit_btn.disabled = true;
+	    }
+	    if(password.val() !== passwordc.val()) {
+	    	submit_btn.disabled = true;
+	    }
+	    if(!document.getElementById('user_email').checkValidity()) {
 	    	submit_btn.disabled = true;
 	    }
    });
@@ -79,6 +85,12 @@ $(function() {
 	    	submit_btn.disabled = true;
 	    }
 	    if(passwordc.val() == '') {
+	    	submit_btn.disabled = true;
+	    }
+	    if(password.val() !== passwordc.val()) {
+	    	submit_btn.disabled = true;
+	    }
+	    if(!document.getElementById('user_email').checkValidity()) {
 	    	submit_btn.disabled = true;
 	    }
     });   
@@ -115,6 +127,12 @@ $(function() {
 	    if(passwordc.val() == '') {
 	    	submit_btn.disabled = true;
 	    }
+	    if(password.val() !== passwordc.val()) {
+	    	submit_btn.disabled = true;
+	    }
+	    if(!document.getElementById('user_email').checkValidity()) {
+	    	submit_btn.disabled = true;
+	    }
 
     });
 
@@ -140,5 +158,11 @@ $(function() {
 	    if(passwordc.val() == '') {
 	    	submit_btn.disabled = true;
 	    }
+	    if(password.val() !== passwordc.val()) {
+	    	submit_btn.disabled = true;
+	    }
+	    if(!document.getElementById('user_email').checkValidity()) {
+	    	submit_btn.disabled = true;
+	    }
     });
-  });
+   });

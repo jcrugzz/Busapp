@@ -21,8 +21,12 @@ exports.new = function(req, res) {
 		this.activated = 0
 	}
 
-	if (req.body.user.password !== req.body.user.passwordc) {
-		res.send('Passwords do not match');
+	if (req.body.user.username === '' || req.body.user.email === '' || req.body.user.password === '' || req.body.user.passwordc === '') {
+		res.json({ error: 'One or more fields are blank :(.'});
+	} else if (req.body.user.username.length <= 6 || req.body.user.email.length <= 4 || req.body.user.password.length <= 6 || req.body.user.passwordc.length <= 6) {
+		res.json({ error: 'Fields must be the appropriate length :(.'});
+	} else if (req.body.user.password !== req.body.user.passwordc) {
+		res.json({ error: 'Passwords do not match'});
 	} else if (!re.test(req.body.user.email)) {
 		res.json({error: 'Not a valid email address.'});
 	} else {
