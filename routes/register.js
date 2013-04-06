@@ -7,7 +7,7 @@ exports.show = function(req, res){
 exports.new = function(req, res) {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-	var db = require('mongojs').connect('localhost/busapp', ['users']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:b4c3999e31705e9fb8889b3c2411f902@linus.mongohq.com:10034/nodejitsudb7971439175', ['users']);
 	var crypto = require('crypto');
 	db.users.ensureIndex({email:1}, {unique: true});
 	db.users.ensureIndex({username:1}, {unique: true});
