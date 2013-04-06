@@ -102,9 +102,9 @@ html
  
         // SIGN IN FORM
   
-        form.navbar-form.pull-right
-         input(class='span2', type='text', placeholder='Email')
-         input(class='span2', type='password', placeholder='Password')
+        form(class='navbar-form pull-right', method='post', action='/session.html')
+         input(class='span2', type='text', placeholder='Email', name='user[email]')
+         input(class='span2', type='password', placeholder='Password', name='user[password]')
          button(type='submit', class='btn btn-primary') Sign in
          a('href=/register.html', class='btn btn-primary') Register
    // END NAVBAR

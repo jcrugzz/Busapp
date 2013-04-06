@@ -3,11 +3,12 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , staticp = require('./routes/staticpage')
+var express  = require('express')
+  , staticp  = require('./routes/staticpage')
   , register = require('./routes/register')
-  , http = require('http')
-  , path = require('path');
+  , session  = require('./routes/session')
+  , http     = require('http')
+  , path     = require('path');
 
 var app = express();
 
@@ -46,6 +47,8 @@ app.get('/index.html', staticp.home);
 //Registration Page
 app.get('/register.html', register.show);
 app.post('/register.html', register.new);
+//Login Page
+app.post('/session.html', session.new);
 
 // About Page
 app.get('/about.html', staticp.about);
