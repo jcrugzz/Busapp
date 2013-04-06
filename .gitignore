@@ -5,6 +5,9 @@
 *.pydevproject
 .project
 .metadata
+bin/
+tmp/
+*.tmp
 *.bak
 *.swp
 *~.nib
@@ -55,6 +58,7 @@ local.properties
 *.tlb
 *.tli
 *.tlh
+*.tmp
 *.vspscc
 .builds
 *.dotCover
@@ -136,6 +140,7 @@ dist
 build
 eggs
 parts
+bin
 var
 sdist
 develop-eggs
