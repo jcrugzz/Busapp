@@ -10,12 +10,12 @@ exports.new = function(req, res) {
 	var digestPassword = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
 	var user = new User(req.body.user.email, digestPassword);	
 
-	db.users.find({'email':user.email}, function(errFind, userFound) {
-		var newToken = crypto.createHash('sha1').update(Math.random() * 5997979 + new Date() + 5%123).digest("hex");
-		db.users.update({email: userFound[0].email}, { $set: {rememberToken: newToken} }, function(errUpdate) {
-			if (errUpdate) {
-				console.log('Fail safe. ' + errUpdate);
-			}
+
+		var newToken = crypto.createHash('sha1').update(Math.random() * 5997979 + new Date() + 5*123).digest("hex");
+		db.users.update({email: user.email}, { $set: {rememberToken: newToken} }, function(errUpdate) {
+			if (errUpdate) { console.log('Fail safe. ' + errUpdate); }
+
+		db.users.find({'email':user.email}, function(errFind, userFound) {
 
 			if (errFind) {
 			console.log('Fail safe. ' + errFind);
@@ -38,7 +38,6 @@ exports.new = function(req, res) {
 					res.render('index', { title: 'Test' });
 				}
 			}
-
 		});
 	});
 
