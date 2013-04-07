@@ -7,22 +7,24 @@ exports.new = function(req, res) {
 		this.email = email;
 		this.password = password;
 	}
-
-	var user = new User(req.body.user.email, req.body.user.password);	
+	var digestPassword = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
+	var user = new User(req.body.user.email, digestPassword);	
 
 	db.users.find({'email':user.email}, function(err, userFound) {
 		console.log(userFound);
-		if (err) {
-			console.log('We have an error :(');
-		} else if (userFound.length === 0) {
-			console.log('We couldn\'t find the user ' + user.email);
-			return;
-		} else if (userFound) {
-			console.log('We have fixed the error, hooorraayyy!! ' + userFound[0].email + " " + userFound[0].password)
-			
-
-			
-		} 
+		if (userFound.length === 0) {
+			console.log('We could not find the user.');
+		} else if (err) {
+			console.log('We have an error: ' + err);
+		} else if (digestPassword !== userFound[0].password) {
+			console.log('Incorrect password.');
+		} else {
+			console.log('We found the user, AND the passwords match.\n' + 
+						'UserFound: ' + userFound[0].email + '\n' +
+						'UserFound Password: ' + userFound[0].password + '\n' +
+						'User Submitted: ' + user.email + '\n' + 
+						'User Submitted Password: ' + user.password);
+		}
 	});
 
 }

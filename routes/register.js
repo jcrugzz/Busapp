@@ -17,6 +17,7 @@ exports.new = function(req, res) {
 		this.username  = username;
 		this.password = password;
 		this.dateCreated = new Date();
+		this.dateModified = new Date();
 		this.admin = 0;
 		this.activated = 0
 	}
