@@ -7,27 +7,16 @@ var express  = require('express')
   , staticp  = require('./routes/staticpage')
   , register = require('./routes/register')
   , session  = require('./routes/session')
+  , helper   = require('./helpers/helper')
   , http     = require('http')
-  , path     = require('path')
-  , db       = require('mongojs').connect('localhost/busapp', ['users']);
+  , path     = require('path');
 
 var app = express();
 
 
 app.use(express.cookieParser());
 app.use(function(req, res, next) {
-  db.users.find({'rememberToken': req.cookies.rememberToken}, function(err, foundUser) {
-    
-    if (err) { res.locals.isLoggedIn = false; next(); }
-    if (foundUser.length === 0) {
-      res.locals.isLoggedIn = false;
-      next();
-    } else {
-      res.locals.isLoggedIn = true;
-      res.locals.userName = foundUser[0].username;
-      next();
-    }
-  });
+  helper.isLoggedIn(req, res, next);
 });
 
 // all environments
