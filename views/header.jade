@@ -1,6 +1,7 @@
 !!!
 html
  head
+  
   meta(charset='utf8')
   meta(name='viewport', content='width=device-width', initial-scale='1.0')
   link(rel='stylesheet', href='public/stylesheets/bootstrap.css');
@@ -102,12 +103,27 @@ html
             a(href='#') Action
  
         // SIGN IN FORM
-  
-        form(class='navbar-form pull-right', method='post', action='/session.html')
-         input(class='span2', type='text', placeholder='Email', name='user[email]')
-         input(class='span2', type='password', placeholder='Password', name='user[password]')
-         button(type='submit', class='btn btn-primary') Sign in
-         a('href=/register.html', class='btn btn-primary') Register
+        if (!isLoggedIn)
+         form(class='navbar-form pull-right', method='post', action='/session.html')
+          input(class='span2', type='text', placeholder='Email', name='user[email]')
+          input(class='span2', type='password', placeholder='Password', name='user[password]')
+          button(type='submit', class='btn btn-primary') Sign in
+          a('href=/register.html', class='btn btn-primary') Register
+
+        // USER IS LOGGED IN 
+        if (isLoggedIn)
+         div.btn-group.pull-right
+          a(class='btn dropdown-toggle btn-primary', data-toggle='dropdown', href='#') #{userName}  
+           span.caret
+          ul.dropdown-menu
+           li
+            a Nothing
+           li
+            a Nothing
+           li.divider
+           li
+            a(href='/session.html') Log Out
+
    // END NAVBAR
    yield
    

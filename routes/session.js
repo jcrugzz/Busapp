@@ -23,10 +23,13 @@ exports.new = function(req, res) {
 
 				if (userFound.length === 0) {
 					console.log('We could not find the user.');
+					res.render('index', { title: 'Test' });
 				} else if (errFind) {
 					console.log('We have an error: ' + errFind);
+					res.render('index', { title: 'Test' });
 				} else if (digestPassword !== userFound[0].password) {
 					console.log('Incorrect password.');
+					res.render('index', { title: 'Test' });
 				} else {
 					// TO DO: REMOVE THIS LOG AFTER DEBUGGING DONE
 					console.log('We found the user, AND the passwords match.\n' + 
@@ -36,9 +39,15 @@ exports.new = function(req, res) {
 								'User Submitted Password: ' + user.password);
 					res.cookie('rememberToken', userFound[0].rememberToken);
 					res.render('index', { title: 'Test' });
+					console.log(req.cookies.rememberToken);
 				}
 			}
 		});
 	});
 
+}
+
+exports.destroy = function(req, res) {
+	res.clearCookie('rememberToken');
+	res.render('index', { title: 'Test' });
 }

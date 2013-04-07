@@ -8,15 +8,32 @@ var express  = require('express')
   , register = require('./routes/register')
   , session  = require('./routes/session')
   , http     = require('http')
-  , path     = require('path');
+  , path     = require('path')
+  , db       = require('mongojs').connect('localhost/busapp', ['users']);
 
 var app = express();
+
+
+app.use(express.cookieParser());
+app.use(function(req, res, next) {
+  db.users.find({'rememberToken': req.cookies.rememberToken}, function(err, foundUser) {
+    
+    if (err) { res.locals.isLoggedIn = false; next(); }
+    if (foundUser.length === 0) {
+      res.locals.isLoggedIn = false;
+      next();
+    } else {
+      res.locals.isLoggedIn = true;
+      res.locals.userName = foundUser[0].username;
+      next();
+    }
+  });
+});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.cookieParser());
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -50,6 +67,7 @@ app.get('/register.html', register.show);
 app.post('/register.html', register.new);
 //Login Page
 app.post('/session.html', session.new);
+app.get('/session.html', session.destroy);
 
 // About Page
 app.get('/about.html', staticp.about);
