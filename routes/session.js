@@ -1,4 +1,4 @@
-var db     = require('mongojs').connect('localhost/busapp', ['users']),
+var db     = require('mongojs').connect('mongodb://nodejitsu:b4c3999e31705e9fb8889b3c2411f902@linus.mongohq.com:10034/nodejitsudb7971439175', ['users']),
     crypto = require('crypto');
 
 exports.new = function(req, res) {
@@ -37,7 +37,7 @@ exports.new = function(req, res) {
 								'UserFound Password: ' + userFound[0].password + '\n' +
 								'User Submitted: ' + user.email + '\n' + 
 								'User Submitted Password: ' + user.password);
-					res.cookie('rememberToken', userFound[0].rememberToken);
+					res.cookie('rememberToken', userFound[0].rememberToken, { expires: new Date(Date.now() + 90000000), httpOnly: true});
 					res.locals.isLoggedIn = true;
 					res.locals.userName = userFound[0].username;
 					res.render('index', { title: 'Test' });
