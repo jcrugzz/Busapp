@@ -11,7 +11,6 @@ exports.new = function(req, res) {
 	var user = new User(req.body.user.email, digestPassword);	
 
 	db.users.find({'email':user.email}, function(err, userFound) {
-		console.log(userFound);
 		if (userFound.length === 0) {
 			console.log('We could not find the user.');
 		} else if (err) {
