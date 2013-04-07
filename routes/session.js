@@ -1,4 +1,4 @@
-var db     = require('mongojs').connect('mongodb://nodejitsu:b4c3999e31705e9fb8889b3c2411f902@linus.mongohq.com:10034/nodejitsudb7971439175', ['users']),
+var db     = require('mongojs').connect('localhost/busapp', ['users']),
     crypto = require('crypto');
 
 exports.new = function(req, res) {
@@ -10,19 +10,34 @@ exports.new = function(req, res) {
 	var digestPassword = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
 	var user = new User(req.body.user.email, digestPassword);	
 
-	db.users.find({'email':user.email}, function(err, userFound) {
-		if (userFound.length === 0) {
-			console.log('We could not find the user.');
-		} else if (err) {
-			console.log('We have an error: ' + err);
-		} else if (digestPassword !== userFound[0].password) {
-			console.log('Incorrect password.');
+	db.users.find({'email':user.email}, function(errFind, userFound) {
+		var newToken = crypto.createHash('sha1').update(Math.random() * 5997979 + new Date() + 5*123).digest("hex");
+		db.users.update({email: userFound[0].email}, { $set: {rememberToken: newToken} }, function(errUpdate) {
+			if (errUpdate) {
+				console.log('Fail safe. ' + errUpdate);
+			}
+		});
+
+		if (errFind) {
+			console.log('Fail safe. ' + errFind);
 		} else {
-			console.log('We found the user, AND the passwords match.\n' + 
-						'UserFound: ' + userFound[0].email + '\n' +
-						'UserFound Password: ' + userFound[0].password + '\n' +
-						'User Submitted: ' + user.email + '\n' + 
-						'User Submitted Password: ' + user.password);
+
+			if (userFound.length === 0) {
+				console.log('We could not find the user.');
+			} else if (errFind) {
+				console.log('We have an error: ' + errFind);
+			} else if (digestPassword !== userFound[0].password) {
+				console.log('Incorrect password.');
+			} else {
+				// TO DO: REMOVE THIS LOG AFTER DEBUGGING DONE
+				console.log('We found the user, AND the passwords match.\n' + 
+							'UserFound: ' + userFound[0].email + '\n' +
+							'UserFound Password: ' + userFound[0].password + '\n' +
+							'User Submitted: ' + user.email + '\n' + 
+							'User Submitted Password: ' + user.password);
+				res.cookie('rememberToken', userFound[0].rememberToken);
+				res.render('index', { title: 'Test' });
+			}
 		}
 	});
 

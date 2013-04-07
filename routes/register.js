@@ -7,7 +7,7 @@ exports.show = function(req, res){
 exports.new = function(req, res) {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-	var db = require('mongojs').connect('', ['users']);
+	var db = require('mongojs').connect('localhost/busapp', ['users']);
 	var crypto = require('crypto');
 	db.users.ensureIndex({email:1}, {unique: true});
 	db.users.ensureIndex({username:1}, {unique: true});
@@ -20,6 +20,7 @@ exports.new = function(req, res) {
 		this.dateModified = new Date();
 		this.admin = 0;
 		this.activated = 0
+		this.rememberToken = crypto.createHash('sha256').update(Math.random() * 5997979 + new Date() + 5*123).digest("hex");
 	}
 
 	if (req.body.user.username === '' || req.body.user.email === '' || req.body.user.password === '' || req.body.user.passwordc === '') {
@@ -34,10 +35,11 @@ exports.new = function(req, res) {
 		var digestPassword = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
 		var user = new User(req.body.user.email, req.body.user.username,
 							digestPassword);
+		console.log('Remember Token: ' + user.rememberToken);
 		console.log(user.email + digestPassword + user.username);
  		// Save user to database
 		db.users.save(user, function(err, savedUser) {
-			console.log(typeof err + "\n\n\n\n\n\n\n");
+			console.log(typeof err + "\n");
 			if (err) {
 				if(typeof err.err === 'undefined') {
 					res.json({ error: 'Unable to connect to the database :(. ' });
