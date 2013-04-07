@@ -6,6 +6,8 @@
 .project
 .metadata
 *.bak
+/log
+/bin
 *.swp
 *~.nib
 local.properties
