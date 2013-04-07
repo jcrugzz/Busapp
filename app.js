@@ -17,19 +17,6 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.cookieParser());
-app.use(express.session({
-  secret: "076ee61d63ba104r4e34872411e433b2",
-  cookie: {
-    httpOnly: true,
-    path : '/',
-    maxAge: 1000*60*60*24*30*12
-  }
-}));
-app.use(express.csrf());
-app.use(function(req, res, next) {
-  res.locals.token = req.session._csrf;
-  next();
-})
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());

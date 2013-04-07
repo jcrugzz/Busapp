@@ -2,7 +2,6 @@ include header
  div.regbody
    form(class='form-signin', action='/register.html', method='post', id='register')
     h2.form-signin-heading Sign Up
-    input(type='hidden', name='_csrf', value=token)
     input(type='email', required, class='input-block-level', placeholder='Email Address', name='user[email]', id='user_email')
     p(id='alert_user_email', class='alert-error')
     input(type='text', required, class='input-block-level', placeholder='Username', name='user[username]', id='user_username')

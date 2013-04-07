@@ -7,7 +7,7 @@ exports.show = function(req, res){
 exports.new = function(req, res) {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-	var db = require('mongojs').connect('', ['users']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:b4c3999e31705e9fb8889b3c2411f902@linus.mongohq.com:10034/nodejitsudb7971439175', ['users']);
 	var crypto = require('crypto');
 	db.users.ensureIndex({email:1}, {unique: true});
 	db.users.ensureIndex({username:1}, {unique: true});
@@ -37,11 +37,17 @@ exports.new = function(req, res) {
 		console.log(user.email + digestPassword + user.username);
  		// Save user to database
 		db.users.save(user, function(err, savedUser) {
+			console.log(typeof err + "\n\n\n\n\n\n\n");
 			if (err) {
-				res.json({ error: 'Something went wrong :('})
+				if(typeof err.err === 'undefined') {
+					res.json({ error: 'Unable to connect to the database :(. ' });
+				} else if (typeof err === 'object' && err.err.indexOf('dup')) {
+					res.json({ error: 'Email and/or Username already registered.' });
+				}
 			} else {
-				res.json({ success: 'Account registered successfully :)'});
+				res.json({ success: 'Account registered successfully :).' });
 			}
+			
 		});
-    }
+    }	
 }

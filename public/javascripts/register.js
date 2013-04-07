@@ -15,6 +15,9 @@ $(function() {
 				} else {
 					$('#alertsuccessreg').text(data.success);
 				}
+				if(!data) {
+					$('#alertsuccessreg').text('Failed to connect to the database.');
+				}
 			}
 		});
 	});
