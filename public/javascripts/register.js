@@ -39,7 +39,7 @@ $(function() {
     submit_btn.disabled = true;
     $('#user_username').on('keyup change', function() {
       if (username.val().length <= 0) {
-        $('#alert_user_username').text('Username cannot be blank');
+        $('#alert_user_username').text('Username must be more than 2 characters.');
         submit_btn.disabled = true;
         $('#alert_user_username').show();
       }
@@ -69,8 +69,8 @@ $(function() {
    });
 
     $('#user_email').on('keyup change', function() {
-      if ((email.val().length <= 6) || (!document.getElementById('user_email').checkValidity())) {
-        $('#alert_user_email').text('Email cannot be blank or an invalid format');
+      if ((email.val().length <= 4) || (!document.getElementById('user_email').checkValidity())) {
+        $('#alert_user_email').text('Email must be more than 4 characters and a valid format');
         submit_btn.disabled = true;
         $('#alert_user_email').show();
       } else {
@@ -100,7 +100,7 @@ $(function() {
 
     $('#user_password').on('keyup change', function() {
       if (password.val().length <= 7) {
-        $('#alert_user_password').text('Password cannot be less than 8 characters long');
+        $('#alert_user_password').text('Password cannot be less than 6 characters long');
         submit_btn.disabled = true;
         $('#alert_user_password').show();
       } else {

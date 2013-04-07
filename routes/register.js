@@ -7,7 +7,7 @@ exports.show = function(req, res){
 exports.new = function(req, res) {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-	var db = require('mongojs').connect('localhost/busapp', ['users']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['users']);
 	var crypto = require('crypto');
 	db.users.ensureIndex({email:1}, {unique: true});
 	db.users.ensureIndex({username:1}, {unique: true});
@@ -25,7 +25,7 @@ exports.new = function(req, res) {
 
 	if (req.body.user.username === '' || req.body.user.email === '' || req.body.user.password === '' || req.body.user.passwordc === '') {
 		res.json({ error: 'One or more fields are blank :(.'});
-	} else if (req.body.user.username.length <= 6 || req.body.user.email.length <= 4 || req.body.user.password.length <= 6 || req.body.user.passwordc.length <= 6) {
+	} else if (req.body.user.username.length <= 2 || req.body.user.email.length <= 4 || req.body.user.password.length <= 6 || req.body.user.passwordc.length <= 6) {
 		res.json({ error: 'Fields must be the appropriate length :(.'});
 	} else if (req.body.user.password !== req.body.user.passwordc) {
 		res.json({ error: 'Passwords do not match'});
