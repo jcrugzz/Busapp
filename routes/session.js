@@ -38,8 +38,9 @@ exports.new = function(req, res) {
 								'User Submitted: ' + user.email + '\n' + 
 								'User Submitted Password: ' + user.password);
 					res.cookie('rememberToken', userFound[0].rememberToken);
+					res.locals.isLoggedIn = true;
+					res.locals.userName = userFound[0].username;
 					res.render('index', { title: 'Test' });
-					console.log(req.cookies.rememberToken);
 				}
 			}
 		});
@@ -49,5 +50,6 @@ exports.new = function(req, res) {
 
 exports.destroy = function(req, res) {
 	res.clearCookie('rememberToken');
+	res.locals.isLoggedIn = false;
 	res.render('index', { title: 'Test' });
 }
