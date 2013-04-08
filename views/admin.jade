@@ -4,6 +4,7 @@ include header
    div.span3.form-signin
     form(id='markerform', method='post')
      p#alertt.alert-info
+     input(id='route_id', name='route[id]', type='hidden')
      select(name='route[plant_site]', class='input-block-level', id='route_plant_site')
       option(value='Syncrude Base Mine') Syncrude Base Mine
       option(value='Syncrude Base Plant') Syncrude Base Plant
@@ -24,7 +25,7 @@ include header
      input(class='input-block-level', id='route_street_name', name='route[street_name]', placeholder='Street Name',
      type='text')
 
-     p.alert-info Insert ONLY the time.
+     p(class='alert-info', style='text-align: center;') Insert ONLY the time.
      input(class='input-block-level', id='route_weekday_day', name='route[weekday_day]', placeholder='Weekday Day e.g. 7:00 AM', type='text')
 
      input(class='input-block-level', id='route_weekend_day', name='route[weekend_day]', placeholder='Weekend Day e.g. 7:00 AM', type='text')

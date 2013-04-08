@@ -65,6 +65,11 @@ app.get('/about.html', staticp.about);
 // Admin Page
 app.get('/admin.html', admin.show);
 app.post('/admin.html', admin.new);
+app.get('/adminload.html',  admin.load);
+app.get('/admin.html/:id', function(req, res) {
+  admin.fetch(req, res, req.params.id);
+});
+app.put('/admin.html', admin.update);
 
 
 // Test

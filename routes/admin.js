@@ -6,9 +6,10 @@ exports.show = function(req, res) {
 exports.new = function(req, res) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
 
-	function Route(route_number, stop_number, latitude, longitude, street_name,
+	function Route(plant_site, route_number, stop_number, latitude, longitude, street_name,
 				   weekday_day, weekend_day, ado_day, weekday_night, weekend_night,
 				   ado_night) {
+		this.plant_site    = plant_site;
 		this.route_number  = route_number;
 		this.stop_number   = stop_number;
 		this.latitude      = latitude;
@@ -23,7 +24,8 @@ exports.new = function(req, res) {
 	}
 	
 
-	if (req.body.route.route_number  === '' || req.body.route.stop_number    === '' ||
+	if (req.body.route.plant_site    === '' ||
+		req.body.route.route_number  === '' || req.body.route.stop_number    === '' ||
 		req.body.route.latitude      === '' || req.body.route.longitude      === '' ||
 		req.body.route.street_name   === '' || req.body.route.weekday_day    === '' ||
 		req.body.route.weekend_day   === '' || req.body.route.ado_day        === '' ||
@@ -33,7 +35,7 @@ exports.new = function(req, res) {
 		res.json({ 'error': 'One or more fields are blank.'});
 	} else {
 
-		var route = new Route(req.body.route.route_number, req.body.route.stop_number,
+		var route = new Route(req.body.route.plant_site, req.body.route.route_number, req.body.route.stop_number,
 			req.body.route.latitude, req.body.route.longitude, req.body.route.street_name,
 			req.body.route.weekday_day, req.body.route.weekend_day, req.body.route.ado_day,
 			req.body.route.weekday_night, req.body.route.weekend_night, req.body.route.ado_night);
@@ -58,5 +60,77 @@ exports.new = function(req, res) {
 exports.load = function(req, res) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
 
-	
+	db.routes.find(function(err, foundMarkers) {
+		console.log(foundMarkers);
+		res.json({ 'success': foundMarkers });
+	});
 }
+
+exports.fetch = function(req, res, id) {
+	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	console.log(id);
+	console.log(id);
+
+	db.routes.find({'latitude': id}, function(err, foundRoute) {
+		if (err) {
+			res.json({'error': 'Failed to fetch with id: ' + id });
+		} else if (foundRoute.length === 0) {
+			res.json({'error': 'Failed to fetch with id: ' + id });
+		} else {
+			res.json({'success': 'Fetched Marker Successfully', 'foundRoute': foundRoute});
+		}
+	});
+}
+
+
+
+
+exports.upadte = function(req, res) {
+	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	db.routes.update({'latitude': req.body.route.latitude}, { $set: {
+		'plant_site':    req.body.routes.plant_site,
+		'route_number':  req.body.routes.route_number,
+		'stop_number':   req.body.routes.stop_number,
+		'latitude':      req.body.routes.latitude,
+		'longitude':     req.body.routes.longitude,
+		'street_name':   req.body.routes.street_name,
+		'weekday_day':   req.body.routes.weekday_day,
+		'weekend_day':   req.body.routes.weekend_day,
+		'ado_day':       req.body.routes.ado_day,
+		'weekday_night': req.body.routes.weekday_night,
+		'weekend_night': req.body.routes.weekend_night,
+		'ado_night':     req.body.routes.ado_night
+	}
+})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
