@@ -159,25 +159,35 @@ $(function() {
         data: dataString,
         dataType: "JSON",
         success: function(data) {
-          console.log(data);
-          console.log('works');
-          $('#alertt').text(data.message);
-          $('#alertt').show();
-           $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+          if (data.error) {
+            $('#alertt').text(data.error);
+            $('#alertt').show();
+            $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+          } else if (data.success) {
+            console.log(data);
+            console.log('works');
+            $('#alertt').text(data.success);
+            $('#alertt').show();
+            $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+          }
         }
       });
     } else if ($('#markeroption').val() === "deletemarker") {
       $.ajax({
         type: 'DELETE',
-        url:  '/admin.html',
-        data: dataString,
+        url:  '/admin.html/'+id,
         dataType: 'JSON',
         success: function(data) {
-          console.log(data);
-          deleteMarker(id);
-       $('#alertt').text(data.message);
-       $('#alertt').show();
-       $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+          if (data.error) {
+           $('#alertt').text(data.error);
+           $('#alertt').show();
+           $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+          } else if (data.success) {
+            deleteMarker(id);
+           $('#alertt').text(data.message);
+           $('#alertt').show();
+           $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+         }
         }
       });
     }
@@ -195,30 +205,36 @@ function fetchMarker(id) {
     url: '/admin.html/'+id,
     dataType: "JSON",
     success: function(data) {
-      console.log(data)
-      console.log(data.foundRoute[0].plant_site)
-      $('#route_weekend_day').show();
-      $('#route_ado_day').show();
-      $('#route_weekday_night').show();
-      $('#route_weekend_night').show();
-      $('#route_ado_night').show();
-      $('#route_id').val(data.foundRoute[0].id);
-      $('#route_plant_site').val(data.foundRoute[0].plant_site);
-      $('#route_route_number').val(data.foundRoute[0].route_number);
-      $('#route_stop_number').val(data.foundRoute[0].stop_number);
-      $('#route_latitude').val(data.foundRoute[0].latitude);
-      $('#route_longitude').val(data.foundRoute[0].longitude);
-      $('#route_street_name').val(data.foundRoute[0].street_name);
-      $('#route_weekday_day').val(data.foundRoute[0].weekday_day);
-      $('#route_weekend_day').val(data.foundRoute[0].weekend_day);
-      $('#route_ado_day').val(data.foundRoute[0].ado_day);
-      $('#route_weekday_night').val(data.foundRoute[0].weekday_night);
-      $('#route_weekend_night').val(data.foundRoute[0].weekend_night);
-      $('#route_ado_night').val(data.foundRoute[0].ado_night);
-      console.log($('#route_id').val());
-      $('#alertt').text(data.message);
-      $('#alertt').show();
-      $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+      if (data.error) {
+        $('#alertt').text(data.error);
+        $('#alertt').show();
+        $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+      } else if (data.success) {
+        console.log(data)
+        console.log(data.foundRoute[0].plant_site)
+        $('#route_weekend_day').show();
+        $('#route_ado_day').show();
+        $('#route_weekday_night').show();
+        $('#route_weekend_night').show();
+        $('#route_ado_night').show();
+        $('#route_id').val(data.foundRoute[0]._id);
+        $('#route_plant_site').val(data.foundRoute[0].plant_site);
+        $('#route_route_number').val(data.foundRoute[0].route_number);
+        $('#route_stop_number').val(data.foundRoute[0].stop_number);
+        $('#route_latitude').val(data.foundRoute[0].latitude);
+        $('#route_longitude').val(data.foundRoute[0].longitude);
+        $('#route_street_name').val(data.foundRoute[0].street_name);
+        $('#route_weekday_day').val(data.foundRoute[0].weekday_day);
+        $('#route_weekend_day').val(data.foundRoute[0].weekend_day);
+        $('#route_ado_day').val(data.foundRoute[0].ado_day);
+        $('#route_weekday_night').val(data.foundRoute[0].weekday_night);
+        $('#route_weekend_night').val(data.foundRoute[0].weekend_night);
+        $('#route_ado_night').val(data.foundRoute[0].ado_night);
+        console.log($('#route_id').val());
+        $('#alertt').text(data.success);
+        $('#alertt').show();
+        $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+      }
     }
   });
 }
@@ -232,7 +248,7 @@ $(function() {
       var lati = item.latitude;
       var long = item.longitude;
       var title = 'Route ' + item.route_number + ' Stop ' + item.stop_number;
-      var id = lati;
+      var id = item._id;
       var content = "<table style='font-size: 12px;'><caption>" + item.plant_site + "<br>" + 
       "Stop " + item.stop_number + " of Route " + item.route_number + "</caption><tbody>" +
       "<div class='divider'></div><tr><td>The bus begins its Route at: </tr></td>" +

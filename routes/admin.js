@@ -61,17 +61,22 @@ exports.load = function(req, res) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
 
 	db.routes.find(function(err, foundMarkers) {
-		console.log(foundMarkers);
-		res.json({ 'success': foundMarkers });
+		if (err) {
+			res.json({ 'error': err });
+		} else {
+			console.log(foundMarkers);
+			res.json({ 'success': foundMarkers });
+		}
 	});
 }
 
 exports.fetch = function(req, res, id) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	var ObjectId = db.ObjectId;
 	console.log(id);
 	console.log(id);
 
-	db.routes.find({'latitude': id}, function(err, foundRoute) {
+	db.routes.find({'_id': ObjectId(id)}, function(err, foundRoute) {
 		if (err) {
 			res.json({'error': 'Failed to fetch with id: ' + id });
 		} else if (foundRoute.length === 0) {
@@ -87,7 +92,9 @@ exports.fetch = function(req, res, id) {
 
 exports.update = function(req, res) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
-	db.routes.update({'latitude': req.body.route.latitude}, { $set: {
+	var ObjectId = db.ObjectId;
+	console.log(ObjectId(req.body.route.id));
+	db.routes.update({'_id': ObjectId(req.body.route.id)}, { $set: {
 		'plant_site':    req.body.route.plant_site,
 		'route_number':  req.body.route.route_number,
 		'stop_number':   req.body.route.stop_number,
@@ -111,11 +118,13 @@ exports.update = function(req, res) {
 })
 }
 
-exports.delete = function(req, res) {
+exports.delete = function(req, res, id) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
-	db.routes.remove({'latitude': req.body.route.latitude }, function(err) {
+	var ObjectId = db.ObjectId;
+	db.routes.remove({'_id': ObjectId(id) }, function(err) {
 		if (err) {
 			console.log('Fail safe ' +err);
+			res.json({'error': 'Marker could not be deleted. ' + err})
 		} else {
 			console.log('Worked.');
 			res.json({'success': 'Marker deleted successfully.'})
