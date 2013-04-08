@@ -121,9 +121,8 @@ markersArray.length = 0;
 
 
 function increment() {
-  $('#rotue_stop_number').val( function(i, oldval) {
-    return ++oldval;
-  });
+  var oldValue = document.getElementById('route_stop_number');
+      oldValue.value = parseInt(oldValue.value) + 1;
 }
 
 $(function() {
@@ -136,21 +135,23 @@ $(function() {
         type: 'POST',
         url:  '/admin.html',
         data: dataString,
-        dataType: "JSON",
         success: function(data) {
-          var lati = $('#route_latitude').val();
-          var longi = $('#route_longitude').val();
-          console.log('Added');
-          console.log(data);
-          increment();
-          setMarker(lati, longi);
-          $('#alertt').text(data.message);
-          $('#alertt').show();
-          $('#alertt').fadeIn().delay(2000).fadeOut('slow');
-
+          if(data.error) {
+            $('#alertt').text(data.error);
+            $('#alertt').show();
+            $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+            increment();
+          } else if (data.success) {
+            var lati = $('#route_latitude').val();
+            var longi = $('#route_longitude').val();
+            increment();
+            setMarker(lati, longi);
+            $('#alertt').text(data.success);
+            $('#alertt').show();
+            $('#alertt').fadeIn().delay(2000).fadeOut('slow');
+          }
         }
-      });
-      return false;
+      })
     } else if ($('#markeroption').val() === "changemarker") {
       $.ajax({
         type: 'PUT',
@@ -165,7 +166,6 @@ $(function() {
            $('#alertt').fadeIn().delay(2000).fadeOut('slow');
         }
       });
-      return false;
     } else if ($('#markeroption').val() === "deletemarker") {
       $.ajax({
         type: 'POST',
@@ -180,7 +180,6 @@ $(function() {
        $('#alertt').fadeIn().delay(2000).fadeOut('slow');
         }
       });
-      return false;
     }
   });
 });
@@ -221,3 +220,13 @@ function fetchMarker(id) {
     }
   });
 }
+
+$(function() {
+  $.ajax({
+  type: "GET",
+  url: '/adminload.html',
+  success: function(data) {
+    console.log(data);
+  }
+});
+})

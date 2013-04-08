@@ -42,13 +42,21 @@ exports.new = function(req, res) {
 			if (err) {
 				console.log(route);
 				console.log('Fail safe.');
+				res.json({'error': 'We have an errror: ' + err });
 			} else {
 				for (i in savedRoute) {
 					console.log(i + ': ' + savedRoute[i]);
+					res.json({'success': 'Marker saved successfully.'});
 				}
 			}
 		});
 
 	}
 
+}
+
+exports.load = function(req, res) {
+	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+
+	
 }
