@@ -9,7 +9,6 @@
     "express": "3.1.1",
     "mongojs": "*",
     "jade": "*",
-    "crypto": "*",
     "bcrypt": "*"
   },
   "subdomain": "gacntapp",
