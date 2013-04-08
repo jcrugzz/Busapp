@@ -6,7 +6,7 @@ exports.show = function(req, res){
 // POST Register new user
 exports.new = function(req, res) {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-	var db = require('mongojs').connect('10.0.0.27/busapp', ['users']);
+	var db = require('mongojs').connect('localhost/busapp', ['users']);
 	var bcrypt = require('bcrypt');
 	var crypto = require('crypto');
 	db.users.ensureIndex({email:1}, {unique: true});
@@ -32,8 +32,7 @@ exports.new = function(req, res) {
 	} else if (!re.test(req.body.user.email)) {
 		res.json({error: 'Not a valid email address.'});
 	} else {
-		var salt = bcrypt.genSaltSync(10);
-		var digestPassword = bcrypt.hashSync(req.body.user.password, salt);
+		var digestPassword = bcrypt.hashSync(req.body.user.password, 10);
 		var user = new User(req.body.user.email, req.body.user.username,
 							digestPassword);
 		console.log('Remember Token: ' + user.rememberToken);

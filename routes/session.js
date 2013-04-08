@@ -1,14 +1,14 @@
 var db     = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['users']),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    bcrypt = require('bcrypt');
 
 exports.new = function(req, res) {
 	
-	function User(email, password) {
+	function User(email) {
 		this.email = email;
-		this.password = password;
 	}
-	var digestPassword = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
-	var user = new User(req.body.user.email, digestPassword);	
+
+	var user = new User(req.body.user.email);	
 
 
 		var newToken = crypto.createHash('sha1').update(Math.random() * 5997979 + new Date() + 5*123).digest("hex");
@@ -27,7 +27,8 @@ exports.new = function(req, res) {
 				} else if (errFind) {
 					console.log('We have an error: ' + errFind);
 					res.render('index', { title: 'Test' });
-				} else if (digestPassword !== userFound[0].password) {
+				} else if (!bcrypt.compareSync(req.body.user.password, userFound[0].password)) {
+					console.log(bcrypt.compareSync(req.body.user.password, userFound[0].password));
 					console.log('Incorrect password.');
 					res.render('index', { title: 'Test' });
 				} else {
