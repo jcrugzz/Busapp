@@ -122,13 +122,16 @@ html
            li
             a Nothing
            li.divider
+           if (isAdmin) 
+            li
+             a(href='/admin.html') Admin
            li
             a(href='/session.html') Log Out
 
    // END NAVBAR
    yield
    
-  div#footer
+  div(id='footer')
    div.container
     div.row-fluid
      span(class='muted credit', style='float: left;')

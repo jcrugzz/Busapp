@@ -40,6 +40,11 @@ exports.new = function(req, res) {
 								'User Submitted Password: ' + user.password);
 					res.cookie('rememberToken', userFound[0].rememberToken, { expires: new Date(Date.now() + 90000000), httpOnly: true});
 					res.locals.isLoggedIn = true;
+					if (userFound[0].admin === 1) {
+						res.locals.isAdmin = true;
+					} else {
+						res.locals.isAdmin = false;
+					}
 					res.locals.userName = userFound[0].username;
 					res.render('index', { title: 'Test' });
 				}
