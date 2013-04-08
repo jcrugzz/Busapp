@@ -7,6 +7,7 @@ var express  = require('express')
   , staticp  = require('./routes/staticpage')
   , register = require('./routes/register')
   , session  = require('./routes/session')
+  , admin    = require('./routes/admin')
   , helper   = require('./helpers/helper')
   , http     = require('http')
   , path     = require('path');
@@ -60,6 +61,10 @@ app.get('/session.html', session.destroy);
 
 // About Page
 app.get('/about.html', staticp.about);
+
+// Admin Page
+app.get('/admin.html', admin.show);
+app.post('/admin.html', admin.new);
 
 
 // Test

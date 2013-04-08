@@ -1,0 +1,52 @@
+include header
+ div.container-fluid
+  div.row-fluid
+   div.span3.form-signin
+    form(id='markerform', method='post')
+     p#alertt.alert-info
+     select(name='route[plant_site]', class='input-block-level', id='route_plant_site')
+      option(value='Syncrude Base Mine') Syncrude Base Mine
+      option(value='Syncrude Base Plant') Syncrude Base Plant
+      option(value='Syncrude Aurora Base Mine') Syncrude Aurora Base Mine
+      option(value='Syncrude Aurora Base Plant') Syncrude Aurora Base Plant
+      option(value='Suncor Base Mine') Suncor Base Mine
+      option(value='Suncor Base Plant') Suncor Base Plant
+      option(value='Suncor Firebag') Suncor Firebag
+      option(value='Albian Sands') Albian Sands 
+
+     input(class='input-block-level', id='route_route_number', name='route[route_number]', placeholder='Route Number e.g. 1', type='text')
+     input(class='input-block-level', id='route_stop_number', name='route[stop_number]', placeholder='Stop Number e.g. 1', 
+     type='text')
+     input(class='input-block-level', id='route_latitude', name='route[latitude]', placeholder='Latitude', 
+     type='text')
+     input(class='input-block-level', id='route_longitude', name='route[longitude]', placeholder='Longitude',
+     type='text')
+     input(class='input-block-level', id='route_street_name', name='route[street_name]', placeholder='Street Name',
+     type='text')
+
+     p.alert-info Insert ONLY the time.
+     input(class='input-block-level', id='route_weekday_day', name='route[weekday_day]', placeholder='Weekday Day e.g. 7:00 AM', type='text')
+
+     input(class='input-block-level', id='route_weekend_day', name='route[weekend_day]', placeholder='Weekend Day e.g. 7:00 AM', type='text')
+
+     input(class='input-block-level', id='route_ado_day', name='route[ado_day]', placeholder='ADO Day e.g. 7:00 AM', type='text')
+
+     input(class='input-block-level', id='route_weekday_night', name='route[weekday_night]', placeholder='Weekday Night e.g. 7:00 PM', type='text')
+
+     input(class='input-block-level', id='route_weekend_night', name='route[weekend_night]', placeholder='Weekend Night e.g. 7:00 PM', type='text')
+
+     input(class='input-block-level', id='route_ado_night', name='route[ado_night]', placeholder='ADO Night e.g. 7:00 PM', type='text')
+
+     select(value='markeroption', id='markeroption', class='input-block-level')
+      option(value='addmarkers') Add Marker
+      option(value='changemarker') Change Marker
+      option(value='deletemarker') Delete Marker
+
+     input(class='btn btn-large btn-primary', id='submit_action', name='commit', type='submit', value='Add Marker')
+
+   div(class='span9', id='gmaps')
+
+
+
+
+ script(src='./public/javascripts/adminmap.js')
