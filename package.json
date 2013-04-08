@@ -1,6 +1,6 @@
 {
   "name": "Busapp",
-  "version": "0.0.1-13",
+  "version": "0.0.1-14",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -12,11 +12,8 @@
     "bcrypt": "*",
     "crypto": "*"
   },
-  "env": {
-    "PYTHON": "/opt/local/bin/python2.7"
-  },
   "subdomain": "gacntapp",
   "engines": {
-    "node": "*"
+    "node": "0.8.20"
   }
 }
