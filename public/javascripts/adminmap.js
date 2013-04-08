@@ -155,7 +155,7 @@ $(function() {
     } else if ($('#markeroption').val() === "changemarker") {
       $.ajax({
         type: 'PUT',
-        url:  '/routes/'+id,
+        url:  '/admin.html',
         data: dataString,
         dataType: "JSON",
         success: function(data) {
@@ -168,9 +168,9 @@ $(function() {
       });
     } else if ($('#markeroption').val() === "deletemarker") {
       $.ajax({
-        type: 'POST',
-        url:  '/routes/'+id,
-        data: { _method:'DELETE' },
+        type: 'DELETE',
+        url:  '/admin.html',
+        data: dataString,
         dataType: 'JSON',
         success: function(data) {
           console.log(data);

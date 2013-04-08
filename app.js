@@ -70,6 +70,7 @@ app.get('/admin.html/:id', function(req, res) {
   admin.fetch(req, res, req.params.id);
 });
 app.put('/admin.html', admin.update);
+app.delete('/admin.html', admin.delete);
 
 
 // Test

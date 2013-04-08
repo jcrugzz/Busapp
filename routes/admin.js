@@ -85,26 +85,43 @@ exports.fetch = function(req, res, id) {
 
 
 
-exports.upadte = function(req, res) {
+exports.update = function(req, res) {
 	var db = require('mongojs').connect('localhost/busapp', ['routes']);
 	db.routes.update({'latitude': req.body.route.latitude}, { $set: {
-		'plant_site':    req.body.routes.plant_site,
-		'route_number':  req.body.routes.route_number,
-		'stop_number':   req.body.routes.stop_number,
-		'latitude':      req.body.routes.latitude,
-		'longitude':     req.body.routes.longitude,
-		'street_name':   req.body.routes.street_name,
-		'weekday_day':   req.body.routes.weekday_day,
-		'weekend_day':   req.body.routes.weekend_day,
-		'ado_day':       req.body.routes.ado_day,
-		'weekday_night': req.body.routes.weekday_night,
-		'weekend_night': req.body.routes.weekend_night,
-		'ado_night':     req.body.routes.ado_night
+		'plant_site':    req.body.route.plant_site,
+		'route_number':  req.body.route.route_number,
+		'stop_number':   req.body.route.stop_number,
+		'latitude':      req.body.route.latitude,
+		'longitude':     req.body.route.longitude,
+		'street_name':   req.body.route.street_name,
+		'weekday_day':   req.body.route.weekday_day,
+		'weekend_day':   req.body.route.weekend_day,
+		'ado_day':       req.body.route.ado_day,
+		'weekday_night': req.body.route.weekday_night,
+		'weekend_night': req.body.route.weekend_night,
+		'ado_night':     req.body.route.ado_night
+	}
+}, function(err) {
+	if (err) {
+		console.log('Fail safe: ' + err);
+	} else {
+		console.log('Updated successfully.');
+		res.json({'success':'Updated successfully'});
 	}
 })
 }
 
-
+exports.delete = function(req, res) {
+	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	db.routes.remove({'latitude': req.body.route.latitude }, function(err) {
+		if (err) {
+			console.log('Fail safe ' +err);
+		} else {
+			console.log('Worked.');
+			res.json({'success': 'Marker deleted successfully.'})
+		}
+	})
+}
 
 
 
