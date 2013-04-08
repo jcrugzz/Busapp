@@ -12,6 +12,9 @@
     "bcrypt": "*",
     "crypto": "*"
   },
+  "env": {
+    "PYTHON": "/opt/local/bin/python2.7"
+  },
   "subdomain": "gacntapp",
   "engines": {
     "node": "*"
