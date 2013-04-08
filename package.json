@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "Busapp",
   "version": "0.0.1-11",
   "private": true,
   "scripts": {
@@ -9,11 +9,10 @@
     "express": "3.1.1",
     "mongojs": "*",
     "jade": "*",
-    "crypto": "*",
-    "bcrypt": "*"
+    "crypto": "*"
   },
   "subdomain": "gacntapp",
   "engines": {
-    "node": "0.8.x"
+    "node": "0.10.*"
   }
 }
