@@ -4,6 +4,7 @@ exports.show = function(req, res) {
 
 
 exports.new = function(req, res) {
+	console.log('In new');
 	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 
 	function Route(plant_site, route_number, stop_number, latitude, longitude, street_name,
@@ -33,13 +34,14 @@ exports.new = function(req, res) {
 		req.body.route.ado_night     === '') {
 
 		res.json({ 'error': 'One or more fields are blank.'});
+		console.log('One or more fields are blank');
 	} else {
 
 		var route = new Route(req.body.route.plant_site, req.body.route.route_number, req.body.route.stop_number,
 			req.body.route.latitude, req.body.route.longitude, req.body.route.street_name,
 			req.body.route.weekday_day, req.body.route.weekend_day, req.body.route.ado_day,
 			req.body.route.weekday_night, req.body.route.weekend_night, req.body.route.ado_night);
-
+		console.log('Created Route');
 		db.routes.save(route, function(err, savedRoute) {
 			if (err) {
 				console.log(route);

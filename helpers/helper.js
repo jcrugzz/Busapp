@@ -32,6 +32,7 @@ exports.isLoggedIn = function(req, res, next) {
 }
 
 exports.isAdmin = function(req, res, next) {
+  console.log('In isAdmin');
   db.users.find({'rememberToken': req.cookies.rememberToken}, function(err, foundUser) {
     if (err) { console.log('We have an error' + err) } else {
 
@@ -39,14 +40,17 @@ exports.isAdmin = function(req, res, next) {
         console.log('We could not find the user.');
         console.log('Somebody attempted to view the Admin page without an account.')
         res.render('index', { 'title': 'Home Page'})
-
+        console.log('Made it out of no user found');
       } else {
         if (foundUser[0].admin === 0)
         {
           console.log('A non-admin user account tried to log into the Admin page: ' + foundUser[0].email);
           res.render('index', { 'title': 'Home Page' });
+          console.log('Made it out of not admin');
         } else {
+          console.log('Admin viewing Admin page.');
           next();
+          console.log('Made it out of IS admin.');
         }
       }
     }
