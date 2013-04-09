@@ -41,10 +41,9 @@ exports.isAdmin = function(req, res, next) {
       } else if (foundUser[0].admin === 0) {
           console.log('A non-admin user account tried to log into the Admin page: ' + foundUser[0].email);
           res.render('index', { 'title': 'Home Page' });
-        } else {
-          console.log('Admin viewing Admin page.');
-          next();
-        }
+      } else {
+        console.log('Admin viewing Admin page.');
+        next();
       }
     }
   })
