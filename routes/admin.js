@@ -42,9 +42,7 @@ exports.new = function(req, res) {
 				console.log('Fail safe.');
 				res.json({'error': 'We have an errror: ' + err });
 			} else {
-				for (i in savedRoute) {
-					res.json({'success': 'Marker saved successfully.'});
-				}
+				res.json({'success': 'Marker saved successfully'});
 			}
 		});
 
