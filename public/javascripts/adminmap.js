@@ -135,7 +135,6 @@ $(function() {
             $('#alertt').text(data.error);
             $('#alertt').show();
             $('#alertt').fadeIn().delay(2000).fadeOut('slow');
-            increment();
           } else if (data.success) {
             var lati = $('#route_latitude').val();
             var longi = $('#route_longitude').val();
@@ -145,6 +144,9 @@ $(function() {
             $('#alertt').show();
             $('#alertt').fadeIn().delay(2000).fadeOut('slow');
           }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus + " " + errorThrown)
         }
       })
     } else if ($('#markeroption').val() === "changemarker") {
