@@ -66,11 +66,11 @@ app.get('/session.html',   session.destroy);
 app.get('/about.html',     staticp.about);
 
 // Admin Page
-app.get('/admin.html',        isAdmin,   admin.show);
-app.post('/admin.html',       isAdmin, admin.new);
+app.get('/admin.html',        isAdmin, admin.show);
+app.post('/admin.html',       admin.new);
 app.get('/adminload.html',    isAdmin, admin.load);
 app.get('/admin.html/:id',    isAdmin, function(req, res) { admin.fetch(req, res, req.params.id); });
-app.put('/admin.html',        isAdmin, admin.update);
+app.put('/admin.html',        admin.update);
 app.delete('/admin.html/:id', isAdmin, function(req, res) { admin.delete(req, res, req.params.id); });
 
 
