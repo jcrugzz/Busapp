@@ -4,7 +4,7 @@ exports.show = function(req, res) {
 
 
 exports.new = function(req, res) {
-	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 
 	function Route(plant_site, route_number, stop_number, latitude, longitude, street_name,
 				   weekday_day, weekend_day, ado_day, weekday_night, weekend_night,
@@ -58,7 +58,7 @@ exports.new = function(req, res) {
 }
 
 exports.load = function(req, res) {
-	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 
 	db.routes.find(function(err, foundMarkers) {
 		if (err) {
@@ -71,7 +71,7 @@ exports.load = function(req, res) {
 }
 
 exports.fetch = function(req, res, id) {
-	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 	var ObjectId = db.ObjectId;
 	console.log(id);
 	console.log(id);
@@ -91,7 +91,7 @@ exports.fetch = function(req, res, id) {
 
 
 exports.update = function(req, res) {
-	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 	var ObjectId = db.ObjectId;
 	console.log(ObjectId(req.body.route.id));
 	db.routes.update({'_id': ObjectId(req.body.route.id)}, { $set: {
@@ -119,7 +119,7 @@ exports.update = function(req, res) {
 }
 
 exports.delete = function(req, res, id) {
-	var db = require('mongojs').connect('localhost/busapp', ['routes']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 	var ObjectId = db.ObjectId;
 	db.routes.remove({'_id': ObjectId(id) }, function(err) {
 		if (err) {

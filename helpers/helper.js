@@ -1,4 +1,4 @@
-var db = require('mongojs').connect('localhost/busapp', ['users']);
+var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['users']);
 
 
 
