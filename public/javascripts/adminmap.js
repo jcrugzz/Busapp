@@ -128,7 +128,7 @@ $(function() {
     if ($('#markeroption').val() === "addmarkers") {
       $.ajax({
         type: 'POST',
-        url:  '/register.html',
+        url:  '/admin.html',
         data: dataString,
         success: function(data) {
           if(data.error) {

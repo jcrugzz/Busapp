@@ -49,7 +49,6 @@ if ('development' == app.get('env')) {
 
 // BEGIN ROUTES
 var isAdmin = function(req, res, next) {
-  console.log('Triggered isAdmin');
   helper.isAdmin(req, res, next);
 }
 
