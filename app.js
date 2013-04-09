@@ -63,10 +63,10 @@ app.get('/about.html',     staticp.about);
 
 // Admin Page
 app.get('/admin.html',        isAdministrator, admin.show);
-app.post('/admin.html',       admin.new);
+app.post('/admin.html',       isAdministrator, admin.new);
 app.get('/adminload.html',    isAdministrator, admin.load);
 app.get('/admin.html/:id',    isAdministrator, function(req, res) { admin.fetch(req, res, req.params.id); });
-app.put('/admin.html',        admin.update);
+app.put('/admin.html',        isAdministrator, admin.update);
 app.delete('/admin.html/:id', isAdministrator, function(req, res) { admin.delete(req, res, req.params.id); });
 
 
