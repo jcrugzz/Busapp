@@ -1,4 +1,4 @@
-var db = require('mongojs').connect('changemedb', ['users']);
+var db = require('mongojs').connect('mongodb://nodejitsu:bf182e585ade8294cf4442939e1667da@linus.mongohq.com:10018/nodejitsudb7293203803', ['users']);
 
 
 
@@ -38,9 +38,7 @@ exports.isAdmin = function(req, res, next) {
       if (foundUser.length === 0) {
         console.log('Somebody attempted to view the Admin page without an account.')
         res.render('index', { 'title': 'Home Page'})
-      } else {
-        if (foundUser[0].admin === 0)
-        {
+      } else if (foundUser[0].admin === 0) {
           console.log('A non-admin user account tried to log into the Admin page: ' + foundUser[0].email);
           res.render('index', { 'title': 'Home Page' });
         } else {

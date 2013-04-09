@@ -1,4 +1,4 @@
-var db     = require('mongojs').connect('changemedb', ['users']),
+var db     = require('mongojs').connect('mongodb://nodejitsu:bf182e585ade8294cf4442939e1667da@linus.mongohq.com:10018/nodejitsudb7293203803', ['users']),
     crypto = require('crypto'),
     bcrypt = require('bcrypt');
 

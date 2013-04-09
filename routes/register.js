@@ -6,7 +6,7 @@ exports.show = function(req, res){
 // POST Register new user
 exports.new = function(req, res) {
 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-	var db = require('mongojs').connect('changemedb', ['users']);
+	var db = require('mongojs').connect('mongodb://nodejitsu:bf182e585ade8294cf4442939e1667da@linus.mongohq.com:10018/nodejitsudb7293203803', ['users']);
 	var bcrypt = require('bcrypt');
 	var crypto = require('crypto');
 	db.users.ensureIndex({email:1}, {unique: true});
