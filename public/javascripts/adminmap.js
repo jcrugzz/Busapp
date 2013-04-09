@@ -127,8 +127,8 @@ $(function() {
       var id = $('#route_id').val();
     if ($('#markeroption').val() === "addmarkers") {
       $.ajax({
-        type: 'POST',
-        url:  '/admin.html',
+        type: "POST",
+        url:  "/admin.html",
         data: dataString,
         success: function(data) {
           if(data.error) {
