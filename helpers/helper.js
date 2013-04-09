@@ -31,7 +31,8 @@ exports.isLoggedIn = function(req, res, next) {
 
 }
 
-exports.isAdmin = function(req, res, next) {
+exports.isAdministrator = function(req, res, next) {
+  console.log('isAdmin ' + req.cookies.rememberToken);
   db.users.find({'rememberToken': req.cookies.rememberToken}, function(err, foundUser) {
     if (err) { console.log('We have an error' + err) } else {
 
@@ -43,7 +44,7 @@ exports.isAdmin = function(req, res, next) {
           res.render('index', { 'title': 'Home Page' });
       } else if (foundUser[0].rememberToken === req.cookies.rememberToken) {
         console.log('Admin viewing Admin page.');
-          next();
+        next();
       }
     }
   })

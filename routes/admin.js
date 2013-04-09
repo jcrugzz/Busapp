@@ -37,6 +37,7 @@ exports.new = function(req, res) {
 			req.body.route.latitude, req.body.route.longitude, req.body.route.street_name,
 			req.body.route.weekday_day, req.body.route.weekend_day, req.body.route.ado_day,
 			req.body.route.weekday_night, req.body.route.weekend_night, req.body.route.ado_night);
+		
 		db.routes.save(route, function(err, savedRoute) {
 			if (err) {
 				console.log('Fail safe.');

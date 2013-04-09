@@ -14,13 +14,9 @@ var express  = require('express')
 
 var app = express();
 
-
-app.use(express.cookieParser());
-app.use(function(req, res, next) {
-  helper.isLoggedIn(req, res, next);
-});
-
 // all environments
+app.use(express.cookieParser());
+app.use(function(req, res, next) { helper.isLoggedIn(req, res, next); });
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -48,8 +44,8 @@ if ('development' == app.get('env')) {
 }
 
 // BEGIN ROUTES
-var isAdmin = function(req, res, next) {
-  helper.isAdmin(req, res, next);
+var isAdministrator = function(req, res, next) {
+  helper.isAdministrator(req, res, next);
 }
 
 // Home Page
@@ -66,12 +62,12 @@ app.get('/session.html',   session.destroy);
 app.get('/about.html',     staticp.about);
 
 // Admin Page
-app.get('/admin.html',        isAdmin, admin.show);
+app.get('/admin.html',        isAdministrator, admin.show);
 app.post('/admin.html',       admin.new);
-app.get('/adminload.html',    isAdmin, admin.load);
-app.get('/admin.html/:id',    isAdmin, function(req, res) { admin.fetch(req, res, req.params.id); });
+app.get('/adminload.html',    isAdministrator, admin.load);
+app.get('/admin.html/:id',    isAdministrator, function(req, res) { admin.fetch(req, res, req.params.id); });
 app.put('/admin.html',        admin.update);
-app.delete('/admin.html/:id', isAdmin, function(req, res) { admin.delete(req, res, req.params.id); });
+app.delete('/admin.html/:id', isAdministrator, function(req, res) { admin.delete(req, res, req.params.id); });
 
 
 // Test
