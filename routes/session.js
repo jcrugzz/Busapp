@@ -3,6 +3,7 @@ var db     = require('mongojs').connect('mongodb://nodejitsu:bf182e585ade8294cf4
     bcrypt = require('bcrypt');
 
 exports.new = function(req, res) {
+	try {
 	
 	function User(email) {
 		this.email = email;
@@ -32,7 +33,7 @@ exports.new = function(req, res) {
 					res.render('index', { title: 'Test' });
 				} else {
 					// TO DO: REMOVE THIS LOG AFTER DEBUGGING DONE
-					res.cookie('rememberToken', userFound[0].rememberToken, { expires: new Date(Date.now() + 90000000), httpOnly: true});
+					res.cookie('rememberToken', userFound[0].rememberToken, { expires: new Date(Date.now() + 90000000) });
 					res.locals.isLoggedIn = true;
 					if (userFound[0].admin === 1) {
 						res.locals.isAdmin = true;
@@ -45,6 +46,9 @@ exports.new = function(req, res) {
 			}
 		});
 	});
+} catch (e) {
+	res.json({'error':e});
+}
 
 }
 
