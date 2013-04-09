@@ -35,11 +35,8 @@ exports.new = function(req, res) {
 		var digestPassword = bcrypt.hashSync(req.body.user.password, 10);
 		var user = new User(req.body.user.email, req.body.user.username,
 							digestPassword);
-		console.log('Remember Token: ' + user.rememberToken);
-		console.log(user.email + digestPassword + user.username);
  		// Save user to database
 		db.users.save(user, function(err, savedUser) {
-			console.log(typeof err + "\n");
 			if (err) {
 				if(typeof err.err === 'undefined') {
 					res.json({ error: 'Unable to connect to the database :(. ' });

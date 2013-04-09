@@ -28,16 +28,10 @@ exports.new = function(req, res) {
 					console.log('We have an error: ' + errFind);
 					res.render('index', { title: 'Test' });
 				} else if (!bcrypt.compareSync(req.body.user.password, userFound[0].password)) {
-					console.log(bcrypt.compareSync(req.body.user.password, userFound[0].password));
 					console.log('Incorrect password.');
 					res.render('index', { title: 'Test' });
 				} else {
 					// TO DO: REMOVE THIS LOG AFTER DEBUGGING DONE
-					console.log('We found the user, AND the passwords match.\n' + 
-								'UserFound: ' + userFound[0].email + '\n' +
-								'UserFound Password: ' + userFound[0].password + '\n' +
-								'User Submitted: ' + user.email + '\n' + 
-								'User Submitted Password: ' + user.password);
 					res.cookie('rememberToken', userFound[0].rememberToken, { expires: new Date(Date.now() + 90000000), httpOnly: true});
 					res.locals.isLoggedIn = true;
 					if (userFound[0].admin === 1) {

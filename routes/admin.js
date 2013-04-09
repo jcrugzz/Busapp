@@ -4,7 +4,6 @@ exports.show = function(req, res) {
 
 
 exports.new = function(req, res) {
-	console.log('In new');
 	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 
 	function Route(plant_site, route_number, stop_number, latitude, longitude, street_name,
@@ -34,22 +33,18 @@ exports.new = function(req, res) {
 		req.body.route.ado_night     === '') {
 
 		res.json({ 'error': 'One or more fields are blank.'});
-		console.log('One or more fields are blank');
 	} else {
 
 		var route = new Route(req.body.route.plant_site, req.body.route.route_number, req.body.route.stop_number,
 			req.body.route.latitude, req.body.route.longitude, req.body.route.street_name,
 			req.body.route.weekday_day, req.body.route.weekend_day, req.body.route.ado_day,
 			req.body.route.weekday_night, req.body.route.weekend_night, req.body.route.ado_night);
-		console.log('Created Route');
 		db.routes.save(route, function(err, savedRoute) {
 			if (err) {
-				console.log(route);
 				console.log('Fail safe.');
 				res.json({'error': 'We have an errror: ' + err });
 			} else {
 				for (i in savedRoute) {
-					console.log(i + ': ' + savedRoute[i]);
 					res.json({'success': 'Marker saved successfully.'});
 				}
 			}
@@ -66,17 +61,14 @@ exports.load = function(req, res) {
 		if (err) {
 			res.json({ 'error': err });
 		} else {
-			console.log(foundMarkers);
 			res.json({ 'success': foundMarkers });
 		}
 	});
 }
 
 exports.fetch = function(req, res, id) {
-	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
+var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 	var ObjectId = db.ObjectId;
-	console.log(id);
-	console.log(id);
 
 	db.routes.find({'_id': ObjectId(id)}, function(err, foundRoute) {
 		if (err) {
@@ -89,13 +81,9 @@ exports.fetch = function(req, res, id) {
 	});
 }
 
-
-
-
 exports.update = function(req, res) {
 	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 	var ObjectId = db.ObjectId;
-	console.log(ObjectId(req.body.route.id));
 	db.routes.update({'_id': ObjectId(req.body.route.id)}, { $set: {
 		'plant_site':    req.body.route.plant_site,
 		'route_number':  req.body.route.route_number,
@@ -114,7 +102,6 @@ exports.update = function(req, res) {
 	if (err) {
 		console.log('Fail safe: ' + err);
 	} else {
-		console.log('Updated successfully.');
 		res.json({'success':'Updated successfully'});
 	}
 })
@@ -128,7 +115,6 @@ exports.delete = function(req, res, id) {
 			console.log('Fail safe ' +err);
 			res.json({'error': 'Marker could not be deleted. ' + err})
 		} else {
-			console.log('Worked.');
 			res.json({'success': 'Marker deleted successfully.'})
 		}
 	})
