@@ -1,16 +1,16 @@
 !!!
 html
  head
-  
+
   meta(charset='utf8')
   meta(name='viewport', content='width=device-width', initial-scale='1.0')
-  link(rel='stylesheet', href='public/stylesheets/bootstrap.css');
-  link(rel='stylesheet', href='public/stylesheets/bootstrap-responsive.css')
-  link(rel='stylesheet', href='public/stylesheets/general.css')
+  link(rel='stylesheet', href='stylesheets/bootstrap.css');
+  link(rel='stylesheet', href='stylesheets/bootstrap-responsive.css')
+  link(rel='stylesheet', href='stylesheets/general.css')
   script(src='http://code.jquery.com/jquery-1.9.1.js')
   script(src='http://code.jquery.com/jquery-migrate-1.1.1.min.js')
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBi7e8AiTyqWiFt9vlbGqsAzGyRhVWqCsk&sensor=true')
-  script(src='/public/javascripts/bootstrap.js')
+  script(src='javascripts/bootstrap.js')
   title #{title}
  body
   // BEGIN NAVBAR
@@ -19,16 +19,16 @@ html
     div.navbar.navbar-inverse.navbar-fixed-top
      div.navbar-inner
       div.container
-       
+
        button(type='button', class='btn btn-navbar', data-toggle='collapse', data-target='.nav-collapse')
         span.icon-bar
         span.icon-bar
         span.icon-bar
-       
+
        a(class='brand', href='/index.html') Find My Route
- 
+
        div.nav-collapse.collapse
- 
+
         // MAIN LINKS
         ul.nav
          li.active
@@ -37,12 +37,12 @@ html
           a(href='/about.html') About
          li
           a(href='#') Contact
-         
-         // DROPDOWN 
+
+         // DROPDOWN
          li.dropdown
-          a(href='#', class='dropdown-toggle', data-toggle='dropdown') Dropdown 
+          a(href='#', class='dropdown-toggle', data-toggle='dropdown') Dropdown
            b(class='caret')
- 
+
           ul.dropdown-menu
            li
             a(href='#') Action
@@ -55,7 +55,7 @@ html
            li.divider
            li
             a(href='#') Action
- 
+
         // SIGN IN FORM
         if (!isLoggedIn)
          form(class='navbar-form pull-right', method='post', action='/session.html')
@@ -64,10 +64,10 @@ html
           button(type='submit', class='btn btn-primary', style='margin-right: 3px;') Sign in
           a('href=/register.html', class='btn btn-primary') Register
 
-        // USER IS LOGGED IN 
+        // USER IS LOGGED IN
         if (isLoggedIn)
          div.btn-group.pull-right
-          a(class='btn dropdown-toggle btn-primary', data-toggle='dropdown', href='#') #{userName}  
+          a(class='btn dropdown-toggle btn-primary', data-toggle='dropdown', href='#') #{userName}
            span.caret
           ul.dropdown-menu
            li
@@ -75,7 +75,7 @@ html
            li
             a Nothing
            li.divider
-           if (isAdmin) 
+           if (isAdmin)
             li
              a(href='/admin.html') Admin
            li
@@ -83,7 +83,7 @@ html
 
    // END NAVBAR
    yield
-   
+
   div(id='footer')
    div.container
     div.row-fluid

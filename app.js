@@ -26,8 +26,6 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(express.static(__dirname + '/public'));
-app.use("/public", express.static(__dirname + '/public'));
 
 app.configure('development', function() {
 	app.use(express.errorHandler());
@@ -38,10 +36,6 @@ app.configure('production', function() {
 	app.use(express.errorHandler());
 	app.locals.pretty = true;
 });
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 // BEGIN ROUTES
 var isAdministrator = function(req, res, next) {
