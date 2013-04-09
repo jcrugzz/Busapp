@@ -53,9 +53,6 @@ function initialize() {
     addMarker(event.latLng);
     updateTextFields(latitude, longitude)
   });
-
-console.log(arrMarkers.length);
-
 }
 
 function setMarker(lat, lon, markerTitle, id, content) {
@@ -80,11 +77,9 @@ function setMarker(lat, lon, markerTitle, id, content) {
 }
 
 function deleteMarker(id) {
-  console.log('In Delete Marker');
   for (var i = 0; i < arrMarkers.length; i += 1) {
     if (arrMarkers[i].id === id) {
       arrMarkers[i].marker.setMap(null);
-      console.log('Found it');
     }
   }
 }
@@ -164,8 +159,6 @@ $(function() {
             $('#alertt').show();
             $('#alertt').fadeIn().delay(2000).fadeOut('slow');
           } else if (data.success) {
-            console.log(data);
-            console.log('works');
             $('#alertt').text(data.success);
             $('#alertt').show();
             $('#alertt').fadeIn().delay(2000).fadeOut('slow');
@@ -199,7 +192,6 @@ $(function() {
 // AND POPULATE THE APPROPRIATE TEXT FIELDS.
 function fetchMarker(id) {
   var data;
-  console.log(id);
   $.ajax({
     type: "GET",
     url: '/admin.html/'+id,
@@ -210,8 +202,6 @@ function fetchMarker(id) {
         $('#alertt').show();
         $('#alertt').fadeIn().delay(2000).fadeOut('slow');
       } else if (data.success) {
-        console.log(data)
-        console.log(data.foundRoute[0].plant_site)
         $('#route_weekend_day').show();
         $('#route_ado_day').show();
         $('#route_weekday_night').show();
@@ -230,7 +220,6 @@ function fetchMarker(id) {
         $('#route_weekday_night').val(data.foundRoute[0].weekday_night);
         $('#route_weekend_night').val(data.foundRoute[0].weekend_night);
         $('#route_ado_night').val(data.foundRoute[0].ado_night);
-        console.log($('#route_id').val());
         $('#alertt').text(data.success);
         $('#alertt').show();
         $('#alertt').fadeIn().delay(2000).fadeOut('slow');
