@@ -2,7 +2,6 @@ exports.show = function(req, res) {
 	res.render('admin', { title: 'Admin Page' });
 }
 
-
 exports.new = function(req, res) {
 	var db = require('mongojs').connect('mongodb://nodejitsu:650bf5167af0d134783db7f5ffd532be@linus.mongohq.com:10090/nodejitsudb6507186139', ['routes']);
 
@@ -23,7 +22,6 @@ exports.new = function(req, res) {
 		this.ado_night     = ado_night;
 	}
 	
-
 	if (req.body.route.plant_site    === '' ||
 		req.body.route.route_number  === '' || req.body.route.stop_number    === '' ||
 		req.body.route.latitude      === '' || req.body.route.longitude      === '' ||
